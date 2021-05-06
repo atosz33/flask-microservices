@@ -4,3 +4,8 @@ services:
     build: orders
     ports:
       - "5001:5001"
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"

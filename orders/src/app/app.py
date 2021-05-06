@@ -1,37 +1,42 @@
 from flask import Flask, jsonify, request
+from .models import Orders
+from .db import mongodb
 
 app = Flask(__name__)
 
-orders = [
-        {'name':'titkos'}, {'name':'titkosabb'}
-        ]
+
+app.config['MONGODB_SETTINGS'] = {
+        'db': 'orders',
+        'host': '0.0.0.0',
+        'port': 27017
+}
+
+mongodb.init_app(app)
+
+
 
 @app.route('/order', methods=['GET'])
 def list_all_order():
-    return jsonify(orders)
+    return jsonify(Orders.objects())
 
 @app.route('/order/<int:num>', methods=['GET'])
 def show_specific_order(num):
-    return jsonify(orders[num-1])
+    order = Orders.objects.get(num)
+    return jsonify(order)
 
 @app.route('/order/<int:num>', methods=['PUT'])
 def modify_order(num):
     json_data = request.get_json()
     print("tess")
-    orders[num]['name'] = json_data['name']
-    return jsonify(orders[num])
 
 @app.route('/order', methods=['POST'])
 def add_order():
-    json_data = requests.get_json()
-    number_of_orders = len(orders)+1
-    orders.append({number_of_orders:json_data})
-    return orders[number_of_orders]
+    json_data = request.get_json()
+    order = Orders(**json_data)
+    order.save()
+    return jsonify(json_data), 200
+    
 
 @app.route('/order/<int:num>', methods=['DELETE'])
 def remove_order(num):
-    if len(orders) > num:
-        del orders[num]
-    else:
-        return jsonify({'not_valid_element': num}), 400
     return jsonify({'element_removed': num}), 200
