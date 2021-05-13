@@ -1,3 +1,6 @@
 flask
 gunicorn
 flask_mongoengine
+pytest
+mongomock
+pytest_mongodb
