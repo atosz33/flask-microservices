@@ -4,6 +4,7 @@ import datetime
 class Orders(mongodb.Document):
     __tablename__ = "orders"
 
+    product_id = mongodb.IntField()
     product_name = mongodb.StringField()
     user_id = mongodb.IntField()
     price = mongodb.IntField()
