@@ -7,5 +7,4 @@ COPY . /
 
 
 WORKDIR src
-RUN pytest tests
 CMD  [ "/bin/bash", "run_gunicorn.sh" ]
