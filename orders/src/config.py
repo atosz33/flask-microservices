@@ -1,11 +1,8 @@
 class ProductionConfig:
-    MONGO_HOST = '127.0.0.1'
-    MONGO_PORT = 27017
-    MONGO_DBNAME = 'orders'
-    MONGO_URI = f"mongodb://{MONGO_HOST}:{MONGO_PORT}/{MONGO_DBNAME}"
+    MONGO_URI = f"mongodb://mongodb:27017/orders"
 
 class TestConfig:
-    MONGO_HOST = '127.0.0.1'
+    MONGO_HOST = 'mongodb'
     MONGO_PORT = 27017
     MONGO_DBNAME = 'orders'
     MONGO_URI = f"mongodb://{MONGO_HOST}:{MONGO_PORT}/{MONGO_DBNAME}"

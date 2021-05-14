@@ -1,5 +1,6 @@
 import pytest
 from app import app
+from flask import json
 import pytest_mongodb
 from config import TestConfig
 
@@ -16,7 +17,9 @@ def client():
 def test_index_page(client):
     """Start with a blank database."""
     rv = client.get('/')
-    #assert b'{"result": "success"}' in rv.data
+    json_response = json.loads(rv.data)
+    assert 'success' == json_response['result']
+
 
 def test_add_order(client):
     rv = client.post(
